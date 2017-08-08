@@ -16,26 +16,27 @@ class App extends Component {
 	}
 
 	componentDidMount() {
-		this._setBitCoinPriceHistory(this.state.dateRange)
+		this._setBitCoinPriceHistory(this.state.dateRange);
 	}
 
 	_setBitCoinPriceHistory(dateRange) {
-		const startDate = moment(dateRange.startDate).format('YYYY-MM-DD')
-		const endDate = moment(dateRange.endDate).format('YYYY-MM-DD')
-		const url = `https://api.coindesk.com/v1/bpi/historical/close.json?start=${startDate}&end=${endDate}`
+		const startDate = moment(dateRange.startDate).format('YYYY-MM-DD');
+		const endDate = moment(dateRange.endDate).format('YYYY-MM-DD');
+		const url = `https://api.coindesk.com/v1/bpi/historical/close.json?start=${startDate}&end=${endDate}`;
+
 		fetch( url )
-		.then(function(response) {
-			if (response.status >= 400) {
-				throw new Error("Bad response from server");
-			}
-			return response.json();
-		})
-		.then( (historicalPriceData) => {
-			this.setState({
-				bitcoinHistory: historicalPriceData,
-				dateRange
-			 });
-		 });
+			.then(function(response) {
+				if (response.status >= 400) {
+					throw new Error("Bad response from server");
+				}
+				return response.json();
+			})
+			.then( (historicalPriceData) => {
+				this.setState({
+					bitcoinHistory: historicalPriceData,
+					dateRange
+				});
+			});
 	}
 
 	render () {
@@ -48,7 +49,7 @@ class App extends Component {
 				dateRange= { this.state.dateRange }
 				bitcoinHistory= { this.state.bitcoinHistory }
 			/>
-		)
+		);
 	}
 }
 
