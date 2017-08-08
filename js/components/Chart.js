@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+import moment from 'moment';
+import momentLocalizer from 'react-widgets/lib/localizers/moment';
 import d3 from 'd3';
 import { bb } from 'billboard.js';
 import 'react-widgets/lib/less/react-widgets.less';
 import RwDateTimePicker from 'react-widgets/lib/DateTimePicker';
+
+momentLocalizer(moment)
 
 class Chart extends Component {
     componentDidMount() {
