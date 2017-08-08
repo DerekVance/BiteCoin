@@ -2,50 +2,56 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-	entry: './js/app.js',
-	output: {
-		path: path.resolve(__dirname, 'build'),
-		filename: 'app.bundle.js'
+	entry: {
+		main: './js/app.js',
+		vendor: ['react','react-dom', 'lodash']
 	},
+	output: {
+	   path: path.join(__dirname, 'static'),
+	   filename: '[name].js',
+	   publicPath: '/static/'
+   },
 	module: {
-        rules: [
-            {
+		rules: [
+			{
+				test: require.resolve('react'),
+				use: 'expose-loader?React'
+			},
+			{
 				test: /\.js$/,
-                use: [{
-                    loader: 'babel-loader',
-                    query: {
-                        presets: ['es2015', 'react']
-                    }
-                }]
+				use: [{
+					loader: 'babel-loader',
+					query: {
+						presets: ['es2015', 'react']
+					}
+				}]
 			},
-            {
+			{
 				test: /\.gif$/,
-                use: [{
-                    loader: 'url-loader?mimetype=image/png'
-                }]
+				use: [{
+					loader: 'url-loader?mimetype=image/png'
+				}]
 			},
-            {
+			{
 				test: /\.woff(2)?(\?v=[0-9].[0-9].[0-9])?$/,
-                use: [{
-                    loader: 'url-loader?mimetype=application/font=woff'
-                }]
+				use: [{
+					loader: 'url-loader?mimetype=application/font=woff'
+				}]
 			},
-            {
+			{
 				test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
-                use: [{
-                    loader: 'file-loader?name=[name].[ext]'
-                }]
+				use: [{
+					loader: 'file-loader?name=[name].[ext]'
+				}]
 			},
-            {
-            test: /\.less$/,
-            use: [{
-                loader: "style-loader" // creates style nodes from JS strings
-            }, {
-                loader: "css-loader" // translates CSS into CommonJS
-            }, {
-                loader: "less-loader" // compiles Less to CSS
-            }]
-        }]
+			{
+				test: /\.css$/,
+				use: [{
+					loader: "style-loader" // creates style nodes from JS strings
+				}, {
+					loader: "css-loader" // translates CSS into CommonJS
+				}]
+			}]
 	},
 	stats: {
 		colors: true
