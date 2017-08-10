@@ -1,10 +1,9 @@
 # BiteCoin
-***
 
 This project uses react to display historical pricing data on Bitcoin.
 
 ## Local Enviroment / Setup
-***
+
 1. `npm install webpack -g`
 2. `npm install`
 3. `webpack --progress --colors`
